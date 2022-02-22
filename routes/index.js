@@ -1,13 +1,14 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const pjson = require('../package.json');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.status(200).send(
     {
-      sucess: true,
-      message: 'Hello Word',
-      version: '1.0.0'
+      message: 'Welcome',
+      appName: pjson.name,
+      version: pjson.version
     }
   )
 
