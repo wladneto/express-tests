@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # Express - NodeJs App
+  express:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    command:
+      - "npm"
+      - "start"
+    restart: always
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+
+  # Database - Mongo DB
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: 1234
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - app-network
+  
+  # Internal network
+networks:
+  app-network:
+    driver: bridge
+
+  
