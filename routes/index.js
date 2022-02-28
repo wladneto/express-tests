@@ -1,29 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const pjson = require('../package.json');
+const sample = require('../db/sample');
 
-/* GET home page. */
+/* GET home page from sample_colletion*/
 router.get('/', async (req, res, next) => {
   try {
-    const docs = await  global.db.findAll();
-    res.status(200).send({banco:docs});
+    const docs = await  sample.findAll();
+    res.status(200).send({sample_collection:docs});
   } catch (err) {
     next(err);
   }
 })
-
-
-// /* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.status(200).send(
-//     {
-//       message: 'Welcome',
-//       appName: pjson.name,
-//       version: pjson.version
-//     }
-//   )
-
-//   //res.render('index', { title: 'Express' });
-// });
 
 module.exports = router;
